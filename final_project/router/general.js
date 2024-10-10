@@ -76,11 +76,11 @@ public_users.get('/title/:title',function (req, res) {
 
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
-  const isbn = parseInt(req.params.isbn);
-  if(!isNaN(isbn)){
+  const isbn = req.params.isbn;
+  if(books[isbn]){
     res.send(JSON.stringify(books[isbn].reviews));
   }else{
-    res.status(404).send({"message" : "Invalid ISBN"});
+    res.status(404).send({"message" : "Book not found"});
   }
 });
 
