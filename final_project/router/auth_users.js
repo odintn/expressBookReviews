@@ -60,9 +60,9 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   let existingReview = reviews[username];
   reviews[username] = review;
   if (existingReview){
-    res.send({"message": `Review by ${username} of book ${books[isbn].title} successfully updated`});
+    res.send({"message": `Review by ${username} of book with ISBN ${isbn} successfully updated`});
   }else {
-    res.send({"message": `Review by ${username} of book ${books[isbn].title} successfully added`});
+    res.send({"message": `Review by ${username} of book with ISBN ${isbn} successfully added`});
   }
 });
 
@@ -72,7 +72,7 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn;
     let reviews = books[isbn].reviews;
     delete reviews[username];
-    res.send(`Review by ${username} of book ${books[isbn].title} deleted`);
+    res.send(`Review by ${username} of book with ISBN ${isbn} deleted`);
 });
 
 module.exports.authenticated = regd_users;

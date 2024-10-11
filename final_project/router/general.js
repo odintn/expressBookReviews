@@ -40,7 +40,7 @@ public_users.post("/register", (req,res) => {
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
     const get_books = new Promise((resolve, reject) => {
-        res.send(JSON.stringify(books, null, 4));
+        res.send(JSON.stringify({"books" : books}, null, 4));
         resolve("GET books request completed");
     });
 
@@ -72,17 +72,17 @@ public_users.get('/author/:author',function (req, res) {
         Object.keys(books).forEach(key => {
             let book = books[key];
             if(book.author === author){
-                booksByAuthor.push(book);
+
+                booksByAuthor.push({"isbn":key, "title":book.title, "reviews":book.reviews });
             }
         });
-        res.send(JSON.stringify(booksByAuthor));
+        res.send(JSON.stringify({"booksByAuthor" : booksByAuthor}, null, 4));
         resolve("GET by Author request completed");
     });
 
     get_books.then(
         (message) => console.log(message)
     );
-  
 });
 
 // Get all books based on title
@@ -93,10 +93,10 @@ public_users.get('/title/:title',function (req, res) {
         Object.keys(books).forEach(key => {
             let book = books[key];
             if(book.title === title){
-                booksByTitle.push(book);
+                booksByTitle.push({"isbn":key, "author":book.author, "reviews":book.reviews });
             }
         });
-        res.send(JSON.stringify(booksByTitle));
+        res.send(JSON.stringify({"booksbytitle" : booksByTitle}, null, 4));
         resolve("GET by Title request completed.");
     });
 
